@@ -5,18 +5,18 @@ import { AddMarkupDto } from '../dto/markup.dto';
 export class MarkupService {
 
     async markup(body:AddMarkupDto[]){
-        const response =[]
+        const products_markup =[]
         try {
             body.forEach(element => {
                 if('product'in element && 'markup' in element){
                     console.log(element)
-                    response.push(element)
+                    products_markup.push(element)
                 }
             });
     
         const success = {
             "success":1,
-            "products":response
+            "products":products_markup
         }
         return(success)
 
