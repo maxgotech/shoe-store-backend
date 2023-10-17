@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus, Inject } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { Stock } from "src/db/models";
 @Injectable()
 export class StockService {
