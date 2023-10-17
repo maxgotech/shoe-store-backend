@@ -7,7 +7,7 @@ export class AddMarkupDto {
 
  class ProductMarkup{
     @IsNotEmpty()
-    product:number
+    id:number
 
     @IsNotEmpty()
     markup:number
