@@ -11,7 +11,6 @@ export class MarkupService {
         try {
             body.forEach(async element => {
                 if('Id'in element && 'markup' in element){
-                    console.log(element)
                     products_markup.push(element)
                     const stock = await this.stockRepository.findOne({
                         where:{

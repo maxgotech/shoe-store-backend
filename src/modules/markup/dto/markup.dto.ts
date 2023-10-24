@@ -4,7 +4,6 @@ export class AddMarkupDto {
   markup:ProductMarkup[]
 }
 
-
  class ProductMarkup{
     @IsNotEmpty()
     id:number
