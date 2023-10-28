@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadGatewayException, BadRequestException } from '@nestjs/common';
 import { AddMarkupDto } from '../dto/markup.dto';
 import { Stock } from "src/db/models";
 
@@ -8,33 +8,26 @@ export class MarkupService {
     
     async markup(body:AddMarkupDto[]){
         const products_markup =[]
-        try {
-            body.forEach(async element => {
-                if('Id'in element && 'markup' in element){
-                    products_markup.push(element)
-                    const stock = await this.stockRepository.findOne({
-                        where:{
-                            id:element.Id
-                        }
-                    })
-                    await stock.update({markup:element.markup})
-                    await stock.save()
-                    console.log(stock)
-                }
-            });
-    
+        for await(const element of body){
+            if('Id'in element && 'markup' in element){
+                const stock = await this.stockRepository.findOne({
+                    where:{
+                        id:element.Id
+                    }
+                })
+                    if(stock!=null){
+                        products_markup.push(element)
+                        await stock.update({markup:element.markup})
+                        await stock.save()
+                    }
+            }
+        }
+        if(products_markup.length==0){
+            throw new BadRequestException('No products to add markup to')
+        }
         const success = {
-            "success":1,
             "products":products_markup
         }
         return(success)
-
-        } catch {
-            const error = {
-                "success":0
-            }
-            return error
-        }
-    
     }
 }

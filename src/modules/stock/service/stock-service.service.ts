@@ -1,4 +1,5 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException, NotFoundException } from '@nestjs/common';
+import { NotFoundError } from 'rxjs';
 import { Op } from 'sequelize';
 
 import { Product, Stock } from "src/db/models";
@@ -8,7 +9,7 @@ export class StockService {
 
     async findStock(userid:number,type:string){
       if( userid==null && type==null){
-        return this.stockRepository.findAll(
+        const response = await this.stockRepository.findAll(
           {
             include:[
               {
@@ -17,10 +18,14 @@ export class StockService {
             ]
           }
         )
+        if(response.length==0){
+          throw new NotFoundException('No products found')
+        }
+        return response
       }
 
       if(userid==null){
-        return this.stockRepository.findAll(
+        const response = await this.stockRepository.findAll(
           {
             where:{
               '$product.type$':{[Op.eq]:type}
@@ -32,10 +37,14 @@ export class StockService {
             ]
           }
         )
+        if(response.length==0){
+          throw new NotFoundException('No products found')
+        }
+        return response
       }
 
       if(type==null){
-        return this.stockRepository.findAll(
+        const response = await this.stockRepository.findAll(
           {
             where:{
               userId:userid
@@ -47,9 +56,13 @@ export class StockService {
             ]
           }
         )
+        if(response.length==0){
+          throw new NotFoundException('No products found')
+        }
+        return response
       }
 
-      return this.stockRepository.findAll(
+      const response = await this.stockRepository.findAll(
         {
           where:{
             userId:userid,
@@ -62,6 +75,10 @@ export class StockService {
           ]
         }
       )
+      if(response.length==0){
+        throw new NotFoundException('No products found')
+      }
+      return response
     }
 
 }
