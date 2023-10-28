@@ -1,4 +1,4 @@
-import { Injectable, Inject, BadGatewayException, BadRequestException } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { AddMarkupDto } from '../dto/markup.dto';
 import { Stock } from "src/db/models";
 

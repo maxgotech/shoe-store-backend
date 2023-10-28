@@ -1,5 +1,4 @@
-import { Injectable, Inject, BadRequestException, NotFoundException } from '@nestjs/common';
-import { NotFoundError } from 'rxjs';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { Op } from 'sequelize';
 
 import { Product, Stock } from "src/db/models";
