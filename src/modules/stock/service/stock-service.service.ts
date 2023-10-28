@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Op } from 'sequelize';
 
-import { AddedProduct, Product, Stock } from "src/db/models";
+import { Product, Stock } from "src/db/models";
 @Injectable()
 export class StockService {
     constructor(@Inject('STOCK_REPOSITORY') private readonly stockRepository: typeof Stock) {}

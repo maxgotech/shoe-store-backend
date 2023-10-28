@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Patch } from '@nestjs/common';
 import { MarkupService } from '../service/markup-service.service';
 import { AddMarkupDto } from '../dto/markup.dto';
 
@@ -8,7 +8,7 @@ export class MarkupController {
 
     }
 
-    @Post('add')
+    @Patch('add')
     public async AddMarkup(@Body() body:AddMarkupDto[])  {
         return await this.markupService.markup(body);  
     }
