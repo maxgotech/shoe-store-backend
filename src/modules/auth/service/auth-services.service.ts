@@ -24,7 +24,7 @@ export class AuthService {
 
       const user = this.userRepository.build({
         name: userDto.name,
-        surname: userDto.name,
+        surname: userDto.surname,
         mail: userDto.mail,
         password: userDto.password
       })
